@@ -1,0 +1,26 @@
+{
+  "name": "farejador-verbas-prefeituras",
+  "version": "1.0.0",
+  "description": "Sistema automatizado para captação e gestão de oportunidades de verbas para prefeituras",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.9",
+    "sqlite3": "^5.1.6",
+    "body-parser": "^1.20.2",
+    "axios": "^1.6.7",
+    "cheerio": "^1.0.0-rc.12",
+    "nodemailer": "^6.9.8",
+    "node-telegram-bot-api": "^0.61.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "",
+  "license": "MIT"
+}

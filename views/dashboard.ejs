@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Farejador de Verbas</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Dashboard - Farejador de Verbas para Prefeituras</h1>
+    <nav>
+      <a href="/dashboard">Dashboard</a> |
+      <a href="/priority-areas">Áreas Prioritárias</a> |
+      <a href="/funding-sources">Fontes de Verba</a> |
+      <a href="/opportunities">Oportunidades</a> |
+      <a href="/users">Usuários</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Resumo das Verbas Captadas e Disponíveis</h2>
+      <div id="summary">
+        <% if (summary && summary.length > 0) { %>
+          <table>
+            <thead>
+              <tr>
+                <th>Área</th>
+                <th>Total Disponível (R$)</th>
+                <th>Total Captado (R$)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% summary.forEach(row => { %>
+                <tr>
+                  <td><%= row.area %></td>
+                  <td><%= row.total_disponivel ? row.total_disponivel.toLocaleString('pt-BR', {style:'currency',currency:'BRL'}) : '-' %></td>
+                  <td><%= row.total_captado ? row.total_captado.toLocaleString('pt-BR', {style:'currency',currency:'BRL'}) : '-' %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <p>Nenhum dado disponível.</p>
+        <% } %>
+      </div>
+    </section>
+
+    <section>
+      <h2>Prazos e Status de Editais</h2>
+      <div id="deadlines">
+        <% if (deadlines && deadlines.length > 0) { %>
+          <table>
+            <thead>
+              <tr>
+                <th>Área</th>
+                <th>Título</th>
+                <th>Prazo</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% deadlines.forEach(edital => { %>
+                <tr>
+                  <td><%= edital.area %></td>
+                  <td><%= edital.title %></td>
+                  <td><%= edital.deadline ? edital.deadline : '-' %></td>
+                  <td><%= edital.status %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <p>Nenhum edital encontrado.</p>
+        <% } %>
+      </div>
+    </section>
+
+    <section>
+      <h2>Filtros e Pesquisa</h2>
+      <div id="filters">
+        <form method="get" action="/dashboard">
+          <!-- Exemplos de filtros (a implementar no backend futuramente) -->
+          <label>
+            Área:
+            <input type="text" name="area" placeholder="Digite a área...">
+          </label>
+          <label>
+            Status:
+            <select name="status">
+              <option value="">Todos</option>
+              <option value="novo">Novo</option>
+              <option value="em análise">Em análise</option>
+              <option value="enviado">Enviado</option>
+              <option value="aprovado">Aprovado</option>
+              <option value="reprovado">Reprovado</option>
+            </select>
+          </label>
+          <button type="submit" disabled>Filtrar (em breve)</button>
+        </form>
+      </div>
+    </section>
+
+    <section>
+      <h2>Histórico de Captação</h2>
+      <div id="history">
+        <% if (history && history.length > 0) { %>
+          <table>
+            <thead>
+              <tr>
+                <th>Mês</th>
+                <th>Valor Captado (R$)</th>
+                <th>Qtd. Editais Aprovados</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% history.forEach(row => { %>
+                <tr>
+                  <td><%= row.mes %></td>
+                  <td><%= row.captado ? row.captado.toLocaleString('pt-BR', {style:'currency',currency:'BRL'}) : '-' %></td>
+                  <td><%= row.qtd || 0 %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <p>Nenhum histórico disponível.</p>
+        <% } %>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
